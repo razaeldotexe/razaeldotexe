@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 
 // Dash character (can be changed to '━', '═', or '-')
 // The character '─' is the Box Drawings Light Horizontal
-const DASH_CHAR = "─"; 
+const DASH_CHAR = "━"; 
 
 /**
  * Main Generator Function
