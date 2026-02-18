@@ -1,14 +1,14 @@
-const readline = require('readline');
+const readline = require("readline");
 
 // Terminal Interface Configuration
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Dash character (can be changed to '━', '═', or '-')
 // The character '─' is the Box Drawings Light Horizontal
-const DASH_CHAR = "━"; 
+const DASH_CHAR = "━";
 
 /**
  * Main Generator Function
@@ -42,11 +42,10 @@ console.log("Type your category text and press Enter.");
 console.log("Press 'Ctrl + C' to exit.\n");
 
 // Start program by asking for total length
-rl.question('Enter total character length (Default: 25): ', (answer) => {
-  
+rl.question("Enter total character length (Default: 25): ", (answer) => {
   // Set default to 25 if user presses enter directly
-  const totalWidth = answer.trim() === '' ? 25 : parseInt(answer);
-  
+  const totalWidth = answer.trim() === "" ? 25 : parseInt(answer);
+
   // Validation: Ensure input is a number
   if (isNaN(totalWidth)) {
     console.log("Error: Please enter a valid number. Restart the program.");
@@ -54,25 +53,27 @@ rl.question('Enter total character length (Default: 25): ', (answer) => {
     return;
   }
 
-  console.log(`\nTarget Length: [${totalWidth}] chars. Dash Style: '${DASH_CHAR}'`);
+  console.log(
+    `\nTarget Length: [${totalWidth}] chars. Dash Style: '${DASH_CHAR}'`,
+  );
   console.log("----------------------------------------------------\n");
 
   // Set prompt so user knows where to type
-  rl.setPrompt('Input Text > ');
+  rl.setPrompt("Input Text > ");
   rl.prompt();
 
   // Event listener for every Enter key press
-  rl.on('line', (line) => {
+  rl.on("line", (line) => {
     const input = line.trim();
-    
+
     if (input) {
       const result = generateCategory(input, totalWidth);
       console.log(`\nResult (Copy this):\n${result}\n`);
     }
 
     rl.prompt(); // Show prompt again for next input
-  }).on('close', () => {
-    console.log('\nGoodbye!');
+  }).on("close", () => {
+    console.log("\nGoodbye!");
     process.exit(0);
   });
 });

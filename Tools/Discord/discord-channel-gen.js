@@ -1,13 +1,13 @@
-const fs = require('fs');
-const readline = require('readline');
+const fs = require("fs");
+const readline = require("readline");
 
 // Konfigurasi File Output
-const OUTPUT_FILE = 'result.txt';
+const OUTPUT_FILE = "result.txt";
 
 // Konfigurasi Interface Terminal
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 /**
@@ -19,21 +19,21 @@ function formatChannelName(input) {
   // Cek apakah user menggunakan separator | (biasa) atau ｜ (fullwidth)
   // Kita akan split berdasarkan yang ditemukan
   let parts;
-  if (input.includes('|')) {
-    parts = input.split('|');
-  } else if (input.includes('｜')) {
-    parts = input.split('｜');
+  if (input.includes("|")) {
+    parts = input.split("|");
+  } else if (input.includes("｜")) {
+    parts = input.split("｜");
   } else {
     // Jika tidak ada separator, anggap semuanya adalah teks channel biasa
-    return input.trim().toLowerCase().replace(/\s+/g, '-');
+    return input.trim().toLowerCase().replace(/\s+/g, "-");
   }
 
   // Ambil Emoji (Kiri) dan Teks (Kanan)
   const emoji = parts[0].trim();
-  let text = parts.slice(1).join(' ').trim(); // Gabung sisanya jika ada split lebih
+  let text = parts.slice(1).join(" ").trim(); // Gabung sisanya jika ada split lebih
 
   // Logic Discord Channel: Lowercase & Spasi jadi Dash
-  text = text.toLowerCase().replace(/\s+/g, '-');
+  text = text.toLowerCase().replace(/\s+/g, "-");
 
   // Gabungkan kembali dengan separator estetik (｜)
   return `${emoji}｜${text}`;
@@ -44,7 +44,7 @@ function formatChannelName(input) {
  */
 function saveToFile(content) {
   try {
-    fs.appendFileSync(OUTPUT_FILE, content + '\n', 'utf8');
+    fs.appendFileSync(OUTPUT_FILE, content + "\n", "utf8");
     return true;
   } catch (err) {
     console.error("Gagal menyimpan file:", err);
@@ -65,13 +65,13 @@ console.log("Ketik 'exit' atau tekan Ctrl+C untuk selesai.\n");
 const timestamp = new Date().toLocaleString();
 fs.appendFileSync(OUTPUT_FILE, `\n--- Session: ${timestamp} ---\n`);
 
-rl.setPrompt('Input > ');
+rl.setPrompt("Input > ");
 rl.prompt();
 
-rl.on('line', (line) => {
+rl.on("line", (line) => {
   const input = line.trim();
 
-  if (input.toLowerCase() === 'exit') {
+  if (input.toLowerCase() === "exit") {
     rl.close();
     return;
   }
@@ -88,8 +88,9 @@ rl.on('line', (line) => {
   }
 
   rl.prompt();
-
-}).on('close', () => {
-  console.log(`\n\nSelesai! Silakan cek file \x1b[33m${OUTPUT_FILE}\x1b[0m untuk menyalin hasilnya.`);
+}).on("close", () => {
+  console.log(
+    `\n\nSelesai! Silakan cek file \x1b[33m${OUTPUT_FILE}\x1b[0m untuk menyalin hasilnya.`,
+  );
   process.exit(0);
 });
