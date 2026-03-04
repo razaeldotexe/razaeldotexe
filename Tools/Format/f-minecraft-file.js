@@ -22,8 +22,7 @@ const patterns = [
   "world_template",
   "skin_pack",
   "Extract Zip",
-  "[_]",
-  "[]",
+  "resources",
 ];
 
 /**
